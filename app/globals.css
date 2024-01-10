@@ -37,6 +37,7 @@ body,
     --destructive-foreground: 0 0% 98%;
     --theme: 0 0% 97%;
     --theme-foreground: 234 85% 64%;
+    --theme-secondary: 144 65% 39.2%;
     --border: 0 0% 89.8%;
     --input: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
@@ -48,7 +49,7 @@ body,
     --foreground: 0 0% 98%;
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
+    --popover: 225 6.2% 12.5%;
     --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;
     --primary-foreground: 0 0% 9%;
@@ -61,7 +62,6 @@ body,
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --theme: 223 7% 21%;
-    --theme-foreground: 234 85% 64%;
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;

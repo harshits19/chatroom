@@ -22,6 +22,7 @@ const config = {
         theme: {
           DEFAULT: "hsl(var(--theme))",
           foreground: "hsl(var(--theme-foreground))",
+          secondary: "hsl(var(--theme-secondary))",
         },
         primary: {
           DEFAULT: "hsl(var(--primary))",
