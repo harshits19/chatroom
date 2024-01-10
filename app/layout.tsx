@@ -19,7 +19,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
-        <body className={cn(openSans.className, "dark:bg-[#313338]")}>
+        <body className={cn(openSans.className, "")}>
           <ThemeProvider attribute="class" defaultTheme="dark" storageKey="chatroom" enableSystem={false}>
             {children}
           </ThemeProvider>
