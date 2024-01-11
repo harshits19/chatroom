@@ -39,13 +39,13 @@ const InitialModal = () => {
     },
   })
 
-  const isLoading = form.formState.isLoading
+  const isLoading = form.formState.isSubmitting
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post("/api/servers", values)
-      form.reset()
+      await axios.post("/api/servers/create", values)
       router.refresh()
+      form.reset()
       window.location.reload()
     } catch (error) {
       console.log(error)
@@ -55,16 +55,16 @@ const InitialModal = () => {
   if (!isMounted) return null
   return (
     <Dialog open>
-      <DialogContent className="bg-theme p-0 overflow-hidden">
-        <DialogHeader className="pt-8 px-6">
-          <DialogTitle className="text-2xl text-center font-bold">Customize your server</DialogTitle>
+      <DialogContent className="p-0 overflow-hidden bg-theme">
+        <DialogHeader className="px-6 pt-8">
+          <DialogTitle className="text-2xl font-bold text-center">Customize your server</DialogTitle>
           <DialogDescription className="text-center text-accent-foreground">
             Give your server a personality with a name and an image. You can always change it later.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <div className="space-y-8 px-6">
+            <div className="px-6 space-y-8">
               <div className="flex items-center justify-center">
                 <FormField
                   control={form.control}
@@ -84,7 +84,7 @@ const InitialModal = () => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="uppercase text-xs font-bold text-accent-foreground">Server name</FormLabel>
+                    <FormLabel className="text-xs font-bold uppercase text-accent-foreground">Server name</FormLabel>
                     <FormControl>
                       <Input disabled={isLoading} className="no-focus" placeholder="Enter server name" {...field} />
                     </FormControl>
@@ -93,7 +93,7 @@ const InitialModal = () => {
                 )}
               />
             </div>
-            <DialogFooter className="bg-muted px-6 py-4">
+            <DialogFooter className="px-6 py-4 bg-muted">
               <Button disabled={isLoading} variant="primary">
                 Create
               </Button>

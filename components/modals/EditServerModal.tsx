@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import FileUpload from "@/components/FileUpload"
 import { useModal } from "@/hooks/useModalStore"
+import { useEffect } from "react"
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -28,10 +29,10 @@ const formSchema = z.object({
   }),
 })
 
-const CreateServerModal = () => {
+const EditServerModal = () => {
   const router = useRouter()
-  const { isOpen, onClose, type } = useModal()
-
+  const { isOpen, onClose, type, data } = useModal()
+  const { server } = data
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -39,21 +40,27 @@ const CreateServerModal = () => {
       imageUrl: "",
     },
   })
-
-  const isLoading = form.formState.isLoading
+  useEffect(() => {
+    if (server) {
+      form.setValue("name", server.name)
+      form.setValue("imageUrl", server.imageUrl)
+    }
+  }, [server, form])
+  
+  const isLoading = form.formState.isSubmitting
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const server = await axios.post("/api/servers/create", values)
+      const response = await axios.patch(`/api/servers/${server?.id}/edit`, values)
       onClose()
       form.reset()
-      router.push(`/servers/${server?.data?.id}`)
+      router.push(`/servers/${response?.data?.id}`)
       router.refresh()
     } catch (error) {
       console.log(error)
     }
   }
-  const isModalOpen = isOpen && type === "createServer"
+  const isModalOpen = isOpen && type === "editServer"
   const handleClose = () => {
     form.reset()
     onClose()
@@ -100,7 +107,7 @@ const CreateServerModal = () => {
             </div>
             <DialogFooter className="px-6 py-4 bg-muted">
               <Button disabled={isLoading} variant="primary">
-                Create
+                Save
               </Button>
             </DialogFooter>
           </form>
@@ -110,4 +117,4 @@ const CreateServerModal = () => {
   )
 }
 
-export default CreateServerModal
+export default EditServerModal

@@ -1,10 +1,11 @@
+import { NextResponse } from "next/server"
+import { MemberRole } from "@prisma/client"
 import { v4 as uuidv4 } from "uuid"
 import { currentProfile } from "@/lib/currentProfile"
 import { db } from "@/lib/db"
-import { NextResponse } from "next/server"
-import { MemberRole } from "@prisma/client"
 
 export async function POST(req: Request) {
+  /* To create a new server (when user logs in first time or when user wants to create one)  */
   try {
     const { name, imageUrl } = await req.json()
     const profile = await currentProfile()

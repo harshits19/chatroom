@@ -1,6 +1,8 @@
 "use client"
 
 import CreateServerModal from "@/components/modals/CreateServerModal"
+import EditServerModal from "@/components/modals/EditServerModal"
+import InviteModal from "@/components/modals/InviteModal"
 import { useMounted } from "@/hooks/useMounted"
 
 const ModalProvider = () => {
@@ -10,6 +12,8 @@ const ModalProvider = () => {
   return (
     <>
       <CreateServerModal />
+      <EditServerModal />
+      <InviteModal />
     </>
   )
 }
