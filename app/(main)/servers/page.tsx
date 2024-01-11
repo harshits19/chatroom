@@ -1,13 +1,8 @@
-import ThemeButton from "@/components/ThemeButton"
-import { UserButton } from "@clerk/nextjs"
-
-const HomePage = () => {
+const ServerHomePage = () => {
   return (
     <div className="">
-      HomePage
-      <UserButton afterSignOutUrl="/sign-in" />
-      <ThemeButton />
+      Server Page
     </div>
   )
 }
-export default HomePage
+export default ServerHomePage

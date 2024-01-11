@@ -17,7 +17,7 @@ import { Form, FormControl, FormField, FormLabel, FormMessage, FormItem } from "
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import FileUpload from "@/components/FileUpload"
-import { useMounted } from "@/hooks/useMounted"
+import { useModal } from "@/hooks/useModalStore"
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -28,9 +28,10 @@ const formSchema = z.object({
   }),
 })
 
-const InitialModal = () => {
-  const isMounted = useMounted()
+const CreateServerModal = () => {
   const router = useRouter()
+  const { isOpen, onClose, type } = useModal()
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,18 +44,22 @@ const InitialModal = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post("/api/servers", values)
+      const server = await axios.post("/api/servers", values)
       form.reset()
+      onClose()
+      router.push(`/servers/${server?.data?.id}`)
       router.refresh()
-      window.location.reload()
     } catch (error) {
       console.log(error)
     }
   }
-
-  if (!isMounted) return null
+  const isModalOpen = isOpen && type === "createServer"
+  const handleClose = () => {
+    form.reset()
+    onClose()
+  }
   return (
-    <Dialog open>
+    <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-theme p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">Customize your server</DialogTitle>
@@ -104,4 +109,5 @@ const InitialModal = () => {
     </Dialog>
   )
 }
-export default InitialModal
+
+export default CreateServerModal
