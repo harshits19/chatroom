@@ -45,7 +45,9 @@ const ServerHeader = ({ server, role }: ServerHeaderProps) => {
           </DropdownMenuItem>
         )}
         {isAdmin && (
-          <DropdownMenuItem className="px-3 py-2 text-sm cursor-pointer focus:bg-theme-foreground focus:text-white">
+          <DropdownMenuItem
+          onClick={() => onOpen("members", { server })}
+          className="px-3 py-2 text-sm cursor-pointer focus:bg-theme-foreground focus:text-white">
             Manage Members <UserCircle2 className="ml-auto size-4" />
           </DropdownMenuItem>
         )}

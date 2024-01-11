@@ -34,6 +34,7 @@ const InvitePage = async ({ params: { inviteId } }: InvitePageProps) => {
     },
     include: {
       profile: true,
+      members: true,
     },
   })
 
