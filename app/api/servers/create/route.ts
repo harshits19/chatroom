@@ -7,9 +7,12 @@ import { db } from "@/lib/db"
 export async function POST(req: Request) {
   /* To create a new server (when user logs in first time or when user wants to create one)  */
   try {
-    const { name, imageUrl } = await req.json()
     const profile = await currentProfile()
     if (!profile) return new NextResponse("Unauthorized", { status: 401 })
+
+    const { name, imageUrl } = await req.json()
+    if (!name || !imageUrl) return new NextResponse("Name or imageUrl values missing", { status: 400 })
+
     const server = await db.server.create({
       data: {
         profileId: profile.id,
@@ -34,9 +37,10 @@ export async function POST(req: Request) {
         },
       },
     })
+    
     return NextResponse.json(server)
   } catch (error) {
-    console.log("SERVER_POST", error)
+    console.log("Create-Server: ", error)
     return new NextResponse("Internal Error", { status: 500 })
   }
 }

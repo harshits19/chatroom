@@ -22,8 +22,8 @@ const AcceptInviteModal = ({ server }: { server: Server & { profile: Profile; me
       setIsLoading(true)
       const response = await axios.patch(`/api/invite/${server.id}`)
       const serverId = response.data?.id
-      setIsLoading(false)
       if (serverId) {
+        setIsLoading(false)
         setIsSuccess(true)
         router.push(`/servers/${serverId}`)
         router.refresh()
@@ -45,7 +45,7 @@ const AcceptInviteModal = ({ server }: { server: Server & { profile: Profile; me
             )}
           </div>
           <p className="mt-1 text-sm text-accent-foreground">{server?.profile?.name ?? "Admin"} invited you to join</p>
-          <p className="mt-2 text-2xl font-semibold">{server?.name}</p>
+          <p className="mt-2 text-2xl font-semibold capitalize">{server?.name}</p>
           <div className="flex items-center mt-2 text-xs gap-x-1 text-accent-foreground">
             <div className="bg-gray-500 size-3 rounded-2xl" />
             {server?.members?.length}
@@ -56,7 +56,7 @@ const AcceptInviteModal = ({ server }: { server: Server & { profile: Profile; me
           <Button
             disabled={isLoading}
             variant="primary"
-            className={cn("w-full no-focus", { "bg-theme-secondary": isSuccess })}
+            className={cn("w-full no-focus", { "bg-theme-secondary hover:bg-theme-secondary/90": isSuccess })}
             onClick={onClick}>
             {isLoading ? <Loader2 className="size-4 animate-spin mr-1.5" /> : isSuccess ? "Accepted" : "Accept Invite"}
           </Button>

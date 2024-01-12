@@ -46,24 +46,30 @@ const ServerHeader = ({ server, role }: ServerHeaderProps) => {
         )}
         {isAdmin && (
           <DropdownMenuItem
-          onClick={() => onOpen("members", { server })}
-          className="px-3 py-2 text-sm cursor-pointer focus:bg-theme-foreground focus:text-white">
+            onClick={() => onOpen("members", { server })}
+            className="px-3 py-2 text-sm cursor-pointer focus:bg-theme-foreground focus:text-white">
             Manage Members <UserCircle2 className="ml-auto size-4" />
           </DropdownMenuItem>
         )}
         {isModerator && (
-          <DropdownMenuItem className="px-3 py-2 text-sm cursor-pointer focus:bg-theme-foreground focus:text-white">
+          <DropdownMenuItem
+            onClick={() => onOpen("createChannel", { server })}
+            className="px-3 py-2 text-sm cursor-pointer focus:bg-theme-foreground focus:text-white">
             Create Channel <PlusCircle className="ml-auto size-4" />
           </DropdownMenuItem>
         )}
         {isModerator && <DropdownMenuSeparator />}
         {isAdmin && (
-          <DropdownMenuItem className="px-3 py-2 text-sm text-red-500 cursor-pointer focus:bg-destructive focus:text-white">
+          <DropdownMenuItem 
+          onClick={() => onOpen("deleteServer", { server })}
+          className="px-3 py-2 text-sm text-red-500 cursor-pointer focus:bg-destructive focus:text-white">
             Delete Server <TrashIcon className="ml-auto size-4" />
           </DropdownMenuItem>
         )}
         {!isAdmin && (
-          <DropdownMenuItem className="px-3 py-2 text-sm text-red-500 cursor-pointer focus:bg-destructive focus:text-white">
+          <DropdownMenuItem
+            onClick={() => onOpen("leaveServer", { server })}
+            className="px-3 py-2 text-sm text-red-500 cursor-pointer focus:bg-destructive focus:text-white">
             Leave Server <LogOut className="ml-auto size-4" />
           </DropdownMenuItem>
         )}

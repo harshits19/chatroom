@@ -9,12 +9,13 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useOrigin } from "@/hooks/useOrigin"
 import { Check, Copy, RefreshCwIcon } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 const InviteModal = () => {
   const { isOpen, onOpen, onClose, type, data } = useModal()
   const origin = useOrigin()
   const [copied, setCopied] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const inviteUrl = `${origin}/invite/${data.server?.inviteCode}`
   const isModalOpen = isOpen && type === "invite"
@@ -27,12 +28,13 @@ const InviteModal = () => {
 
   const getNewInviteUrl = async () => {
     try {
-      setLoading(true)
+      setIsLoading(true)
       const response = await axios.patch(`/api/servers/${data.server?.id}/invitecode`)
+      setIsLoading(false)
       onOpen("invite", { server: response.data })
-      setLoading(false)
     } catch (error) {
       console.log(error)
+      setIsLoading(false)
     }
   }
 
@@ -45,10 +47,10 @@ const InviteModal = () => {
         <div className="p-6">
           <Label className="text-xs font-bold uppercase text-accent-foreground">Server invite link</Label>
           <div className="flex items-center mt-2">
-            <Input className="rounded-none rounded-l-md no-focus" value={inviteUrl} disabled={loading} />
+            <Input className="rounded-none rounded-l-md no-focus" value={inviteUrl} disabled={isLoading} />
             <Button
               variant="primary"
-              disabled={loading}
+              disabled={isLoading}
               onClick={onCopy}
               size="icon"
               className="px-6 rounded-none rounded-r-md">
@@ -56,13 +58,13 @@ const InviteModal = () => {
             </Button>
           </div>
           <Button
-            disabled={loading}
+            disabled={isLoading}
             onClick={getNewInviteUrl}
             variant="link"
             size="sm"
             className="mt-4 text-xs text-accent-foreground">
             Generate a new link
-            <RefreshCwIcon className="ml-2 size-4" />
+            <RefreshCwIcon className={cn("ml-2 size-4", { "animate-spin": isLoading })} />
           </Button>
         </div>
       </DialogContent>

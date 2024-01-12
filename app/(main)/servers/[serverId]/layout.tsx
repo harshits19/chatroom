@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation"
 import { redirectToSignIn } from "@clerk/nextjs"
+import ServerSidebar from "@/components/server-sidebar/ServerSidebar"
 import { currentProfile } from "@/lib/currentProfile"
 import { db } from "@/lib/db"
-import ServerSidebar from "@/components/server/ServerSidebar"
 
 interface ServerIdLayoutParams {
   children: React.ReactNode

@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation"
-import ServerHeader from "@/components/server/ServerHeader"
+import ServerHeader from "@/components/server-sidebar/ServerHeader"
 import { currentProfile } from "@/lib/currentProfile"
 import { db } from "@/lib/db"
 import { ChannelType } from "@prisma/client"

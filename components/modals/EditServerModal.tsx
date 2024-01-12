@@ -51,7 +51,7 @@ const EditServerModal = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const response = await axios.patch(`/api/servers/${server?.id}/edit`, values)
+      const response = await axios.patch(`/api/servers/${server?.id}`, values)
       onClose()
       form.reset()
       router.push(`/servers/${response?.data?.id}`)
