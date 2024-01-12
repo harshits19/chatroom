@@ -14,20 +14,18 @@ import { cn } from "@/lib/utils"
 const AcceptInviteModal = ({ server }: { server: Server & { profile: Profile; members: Member[] } }) => {
   const router = useRouter()
   const isMounted = useMounted()
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [isSuccess, setIsSuccess] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
 
   const onClick = async () => {
     try {
       setIsLoading(true)
       const response = await axios.patch(`/api/invite/${server.id}`)
       const serverId = response.data?.id
-      if (serverId) {
-        setIsLoading(false)
-        setIsSuccess(true)
-        router.push(`/servers/${serverId}`)
-        router.refresh()
-      }
+      setIsLoading(false)
+      setIsSuccess(true)
+      router.push(`/servers/${serverId}`)
+      router.refresh()
     } catch (error) {
       setIsLoading(false)
       console.log(error)
@@ -37,7 +35,7 @@ const AcceptInviteModal = ({ server }: { server: Server & { profile: Profile; me
   if (!isMounted) return null
   return (
     <Dialog open>
-      <DialogContent className="overflow-hidden bg-theme">
+      <DialogContent className="overflow-hidden bg-theme no-focus">
         <DialogHeader className="flex flex-col items-center justify-center">
           <div className="relative rounded-full size-16 bg-muted">
             {server?.imageUrl && (
@@ -58,7 +56,7 @@ const AcceptInviteModal = ({ server }: { server: Server & { profile: Profile; me
             variant="primary"
             className={cn("w-full no-focus", { "bg-theme-secondary hover:bg-theme-secondary/90": isSuccess })}
             onClick={onClick}>
-            {isLoading ? <Loader2 className="size-4 animate-spin mr-1.5" /> : isSuccess ? "Accepted" : "Accept Invite"}
+            {isLoading ? <Loader2 className="size-4 animate-spin" /> : isSuccess ? "Accepted" : "Accept Invite"}
           </Button>
         </DialogFooter>
       </DialogContent>

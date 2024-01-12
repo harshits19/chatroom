@@ -8,9 +8,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { MemberRole } from "@prisma/client"
+import { useModal } from "@/hooks/useModalStore"
 import { ChevronDown, LogOut, PlusCircle, SettingsIcon, TrashIcon, UserCircle2, UserPlus2 } from "lucide-react"
 import { ServerWithMembersWithProfiles } from "@/types"
-import { useModal } from "@/hooks/useModalStore"
 
 interface ServerHeaderProps {
   server: ServerWithMembersWithProfiles
@@ -60,9 +60,9 @@ const ServerHeader = ({ server, role }: ServerHeaderProps) => {
         )}
         {isModerator && <DropdownMenuSeparator />}
         {isAdmin && (
-          <DropdownMenuItem 
-          onClick={() => onOpen("deleteServer", { server })}
-          className="px-3 py-2 text-sm text-red-500 cursor-pointer focus:bg-destructive focus:text-white">
+          <DropdownMenuItem
+            onClick={() => onOpen("deleteServer", { server })}
+            className="px-3 py-2 text-sm text-red-500 cursor-pointer focus:bg-destructive focus:text-white">
             Delete Server <TrashIcon className="ml-auto size-4" />
           </DropdownMenuItem>
         )}

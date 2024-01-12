@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -18,7 +19,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import FileUpload from "@/components/FileUpload"
 import { useModal } from "@/hooks/useModalStore"
-import { useEffect } from "react"
+import { Loader2 } from "lucide-react"
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -33,6 +34,7 @@ const EditServerModal = () => {
   const router = useRouter()
   const { isOpen, onClose, type, data } = useModal()
   const { server } = data
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,14 +42,16 @@ const EditServerModal = () => {
       imageUrl: "",
     },
   })
+
   useEffect(() => {
     if (server) {
       form.setValue("name", server.name)
       form.setValue("imageUrl", server.imageUrl)
     }
   }, [server, form])
-  
-  const isLoading = form.formState.isSubmitting
+
+  const isSubmitting = form.formState.isSubmitting
+  const isValid = form.formState.isValid
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
@@ -60,11 +64,14 @@ const EditServerModal = () => {
       console.log(error)
     }
   }
+
   const isModalOpen = isOpen && type === "editServer"
+
   const handleClose = () => {
     form.reset()
     onClose()
   }
+
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="p-0 overflow-hidden bg-theme">
@@ -98,7 +105,7 @@ const EditServerModal = () => {
                   <FormItem>
                     <FormLabel className="text-xs font-bold uppercase text-accent-foreground">Server name</FormLabel>
                     <FormControl>
-                      <Input disabled={isLoading} className="no-focus" placeholder="Enter server name" {...field} />
+                      <Input disabled={isSubmitting} className="no-focus" placeholder="Enter server name" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -106,8 +113,8 @@ const EditServerModal = () => {
               />
             </div>
             <DialogFooter className="px-6 py-4 bg-muted">
-              <Button disabled={isLoading} variant="primary">
-                Save
+              <Button disabled={!isValid || isSubmitting} variant="primary">
+                Save Changes
               </Button>
             </DialogFooter>
           </form>

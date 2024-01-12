@@ -38,6 +38,8 @@ body,
     --theme: 0 0% 100%;
     --theme-foreground: 234 85% 64%;
     --theme-secondary: 144 65% 39.2%;
+    --main: 240 3.8% 46%;
+    --main-hover: 240 5.2% 23.9%;
     --border: 0 0% 89.8%;
     --input: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
@@ -61,6 +63,8 @@ body,
     --accent-foreground: 215 8.8% 73%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
+    --main: 240 5% 64.9%;
+    --main-hover: 240 4.8% 83.9%;
     --theme: 223 7% 21%;
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;

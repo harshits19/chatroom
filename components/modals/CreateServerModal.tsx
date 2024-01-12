@@ -46,7 +46,7 @@ const CreateServerModal = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const server = await axios.post("/api/servers/create", values)
+      const server = await axios.post("/api/servers", values)
       onClose()
       form.reset()
       router.push(`/servers/${server?.data?.id}`)
@@ -102,7 +102,7 @@ const CreateServerModal = () => {
             </div>
             <DialogFooter className="px-6 py-4 bg-muted">
               <Button disabled={!isValid || isSubmitting} variant="primary">
-                {isSubmitting ? <Loader2 className="size-4 animate-spin mr-1.5" /> : "Create Server"}
+                {isSubmitting ? <Loader2 className="size-4 animate-spin" /> : "Create Server"}
               </Button>
             </DialogFooter>
           </form>

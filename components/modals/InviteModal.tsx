@@ -3,13 +3,13 @@
 import { useState } from "react"
 import axios from "axios"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { useModal } from "@/hooks/useModalStore"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useOrigin } from "@/hooks/useOrigin"
-import { Check, Copy, RefreshCwIcon } from "lucide-react"
+import { useModal } from "@/hooks/useModalStore"
 import { cn } from "@/lib/utils"
+import { Check, Copy, RefreshCwIcon } from "lucide-react"
 
 const InviteModal = () => {
   const { isOpen, onOpen, onClose, type, data } = useModal()
@@ -18,6 +18,7 @@ const InviteModal = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const inviteUrl = `${origin}/invite/${data.server?.inviteCode}`
+  
   const isModalOpen = isOpen && type === "invite"
 
   const onCopy = () => {

@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import FileUpload from "@/components/FileUpload"
 import { useMounted } from "@/hooks/useMounted"
+import { Loader2 } from "lucide-react"
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -39,11 +40,12 @@ const InitialModal = () => {
     },
   })
 
-  const isLoading = form.formState.isSubmitting
+  const isSubmitting = form.formState.isSubmitting
+  const isValid = form.formState.isValid
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post("/api/servers/create", values)
+      await axios.post("/api/servers", values)
       router.refresh()
       form.reset()
       window.location.reload()
@@ -86,7 +88,7 @@ const InitialModal = () => {
                   <FormItem>
                     <FormLabel className="text-xs font-bold uppercase text-accent-foreground">Server name</FormLabel>
                     <FormControl>
-                      <Input disabled={isLoading} className="no-focus" placeholder="Enter server name" {...field} />
+                      <Input disabled={isSubmitting} className="no-focus" placeholder="Enter server name" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -94,8 +96,8 @@ const InitialModal = () => {
               />
             </div>
             <DialogFooter className="px-6 py-4 bg-muted">
-              <Button disabled={isLoading} variant="primary">
-                Create
+              <Button disabled={!isValid || isSubmitting} variant="primary">
+                {isSubmitting ? <Loader2 className="size-4 animate-spin mr-1.5" /> : "Create Server"}
               </Button>
             </DialogFooter>
           </form>
