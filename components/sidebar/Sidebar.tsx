@@ -1,12 +1,12 @@
 import { redirect } from "next/navigation"
+import { UserButton } from "@clerk/nextjs"
 import { Separator } from "@/components/ui/separator"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import SidebarActions from "@/components/sidebar/SidebarAction"
 import SidebarItem from "@/components/sidebar/SidebarItem"
 import ThemeButton from "@/components/ThemeButton"
-import { UserButton } from "@clerk/nextjs"
-import { db } from "@/lib/db"
 import { currentProfile } from "@/lib/currentProfile"
+import { db } from "@/lib/db"
 
 const Sidebar = async () => {
   const profile = await currentProfile()
@@ -33,10 +33,10 @@ const Sidebar = async () => {
           </div>
         ))}
       </ScrollArea>
-      <div className="pb-3 mt-auto flex items-center flex-col">
+      <div className="flex flex-col items-center pb-3 mt-auto">
         <ThemeButton />
         <Separator className="bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 h-0.5 mx-auto my-2" />
-        <div className="relative mx-3 size-12 rounded-full bg-zinc-300 dark:bg-zinc-700">
+        <div className="relative mx-3 rounded-full size-12 bg-zinc-300 dark:bg-zinc-700">
           <UserButton
             afterSignOutUrl="/sign-in"
             appearance={{

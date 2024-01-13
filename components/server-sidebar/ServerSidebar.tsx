@@ -99,7 +99,7 @@ const ServerSidebar = async ({ serverId }: { serverId: string }) => {
   ]
 
   return (
-    <div className="flex flex-col h-full text-primary w-ful bg-[#F2F3F5] dark:bg-[#2B2D31]">
+    <div className="flex flex-col h-full w-full text-primary w-ful bg-[#F2F3F5] dark:bg-[#2B2D31]">
       <ServerHeader server={server} role={role} />
       <ScrollArea className="flex-1 px-2">
         <div className="mt-2">

@@ -40,7 +40,7 @@ const ServerSearchbar = ({ data }: ServerSearchbarProps) => {
   return (
     <>
       <button
-        className="flex items-center w-full p-2 transition-colors rounded-md gap-x-2 text-main hover:text-main-hover hover:bg-muted dark:hover:bg-accent"
+        className="flex items-center w-full p-2 transition-colors rounded-md gap-x-2 text-main hover:text-main-hover hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50"
         onClick={() => setIsOpen(true)}>
         <SearchIcon className="size-4" />
         <p className="text-sm font-semibold">Search</p>

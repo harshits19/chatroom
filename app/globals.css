@@ -84,3 +84,7 @@ body,
 .no-focus {
   @apply my-0 focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 !important;
 }
+
+.nofocus:focus {
+  outline: none;
+}

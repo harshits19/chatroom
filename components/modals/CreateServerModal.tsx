@@ -18,7 +18,6 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import FileUpload from "@/components/FileUpload"
 import { useModal } from "@/hooks/useModalStore"
-import { Loader2 } from "lucide-react"
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -102,7 +101,7 @@ const CreateServerModal = () => {
             </div>
             <DialogFooter className="px-6 py-4 bg-muted">
               <Button disabled={!isValid || isSubmitting} variant="primary">
-                {isSubmitting ? <Loader2 className="size-4 animate-spin" /> : "Create Server"}
+                Create Server
               </Button>
             </DialogFooter>
           </form>

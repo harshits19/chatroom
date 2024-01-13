@@ -11,8 +11,7 @@ interface InvitePageProps {
 }
 const InvitePage = async ({ params: { inviteId } }: InvitePageProps) => {
   const profile = await currentProfile()
-  if (!profile) return redirectToSignIn()
-  if (!inviteId) return redirect("/")
+  if (!profile || !inviteId) return redirect("/")
 
   //checking whether if user is already part of this server
   const existingServer = await db.server.findFirst({

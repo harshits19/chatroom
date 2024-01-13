@@ -19,7 +19,6 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import FileUpload from "@/components/FileUpload"
 import { useModal } from "@/hooks/useModalStore"
-import { Loader2 } from "lucide-react"
 
 const formSchema = z.object({
   name: z.string().min(1, {
