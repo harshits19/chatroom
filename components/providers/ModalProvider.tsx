@@ -7,8 +7,9 @@ import LeaveServerModal from "@/components/modals/LeaveServerModal"
 import CreateChannelModal from "@/components/modals/CreateChannelModal"
 import EditChannelModal from "@/components/modals/EditChannelModal"
 import DeleteChannelModal from "@/components/modals/DeleteChannelModal"
-import InviteModal from "@/components/modals/InviteModal"
+import MessageFileModal from "@/components/modals/MessageFileModal"
 import MembersModal from "@/components/modals/MembersModal"
+import InviteModal from "@/components/modals/InviteModal"
 import { useMounted } from "@/hooks/useMounted"
 
 const ModalProvider = () => {
@@ -23,6 +24,7 @@ const ModalProvider = () => {
       <CreateChannelModal />
       <EditChannelModal />
       <DeleteChannelModal />
+      <MessageFileModal />
       <MembersModal />
       <EditServerModal />
       <InviteModal />

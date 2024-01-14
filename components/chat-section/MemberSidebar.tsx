@@ -25,7 +25,7 @@ const MemberSidebar = ({ server }: { server: ServerWithMembersWithProfiles }) =>
   }, [])
 
   return (
-    <div className={cn("flex-col h-full w-60 bg-[#F2F3F5] dark:bg-[#2B2D31] hidden", { flex: isOpen })}>
+    <div className={cn("flex-col shrink-0 h-full w-60 bg-[#F2F3F5] dark:bg-[#2B2D31] hidden", { flex: isOpen })}>
       <ScrollArea className="px-2 pb-4 h-[calc(100vh-3rem)]">
         {admins?.length > 0 ? (
           <p className="pt-4 pb-1 pl-2 text-xs font-semibold uppercase text-main">Admins - {admins?.length}</p>

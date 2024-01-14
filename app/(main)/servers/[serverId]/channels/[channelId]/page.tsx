@@ -2,6 +2,8 @@ import { redirect } from "next/navigation"
 import { redirectToSignIn } from "@clerk/nextjs"
 import ChatHeader from "@/components/chat-section/ChatHeader"
 import MemberSidebar from "@/components/chat-section/MemberSidebar"
+import ChatInput from "@/components/chat-section/ChatInput"
+import ChatMessages from "@/components/chat-section/ChatMessages"
 import { currentProfile } from "@/lib/currentProfile"
 import { db } from "@/lib/db"
 
@@ -49,7 +51,31 @@ const ChannelIdPage = async ({ params: { channelId, serverId } }: ChannelIdPageP
     <div className="flex flex-col h-full">
       <ChatHeader name={channel.name} serverId={serverId} type="channel" />
       <div className="relative flex h-full">
-        <div className="flex-1">{channelId}</div>
+        <div className="flex flex-col w-full h-full">
+          <ChatMessages
+            member={member}
+            name={channel.name}
+            chatId={channelId}
+            type="channel"
+            apiUrl="/api/messages"
+            socketUrl="/api/socket/messages"
+            socketQuery={{
+              channelId: channel.id,
+              serverId: channel.serverId,
+            }}
+            paramKey="channelId"
+            paramValue={channelId}
+          />
+          <ChatInput
+            apiUrl="/api/socket/messages"
+            name={channel.name}
+            type="channel"
+            query={{
+              channelId: channel.id,
+              serverId: server.id,
+            }}
+          />
+        </div>
         <MemberSidebar server={server} />
       </div>
     </div>
