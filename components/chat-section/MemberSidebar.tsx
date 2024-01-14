@@ -18,9 +18,8 @@ const MemberSidebar = ({ server }: { server: ServerWithMembersWithProfiles }) =>
 
   const { isOpen, setClose } = useMemberSidebar()
 
-  let isMediumDevice = true
-
   useEffect(() => {
+    let isMediumDevice = true
     if (typeof window !== "undefined") isMediumDevice = window.innerWidth <= 1024
     if (isMediumDevice) setClose()
   }, [])
@@ -40,6 +39,7 @@ const MemberSidebar = ({ server }: { server: ServerWithMembersWithProfiles }) =>
               role={member.role}
               status={member.profile.status}
               serverId={server.id}
+              memberId={member.id}
             />
           )
         })}
@@ -55,6 +55,7 @@ const MemberSidebar = ({ server }: { server: ServerWithMembersWithProfiles }) =>
               role={member.role}
               status={member.profile.status}
               serverId={server.id}
+              memberId={member.id}
             />
           )
         })}
@@ -70,6 +71,7 @@ const MemberSidebar = ({ server }: { server: ServerWithMembersWithProfiles }) =>
               role={member.role}
               status={member.profile.status}
               serverId={server.id}
+              memberId={member.id}
             />
           )
         })}
@@ -85,10 +87,11 @@ interface MemberCardProps {
   role: MemberRole
   status: string
   serverId: string
+  memberId: string
 }
 
-const MemberCard = ({ name, imageUrl, role, status, serverId }: MemberCardProps) => {
-  //   const router = useRouter()
+const MemberCard = ({ name, imageUrl, role, status, serverId, memberId }: MemberCardProps) => {
+  const router = useRouter()
   const mapIconByRole = {
     [MemberRole.GUEST]: null,
     [MemberRole.MODERATOR]: <ShieldCheck className="size-3.5 text-theme-foreground" />,
@@ -96,7 +99,9 @@ const MemberCard = ({ name, imageUrl, role, status, serverId }: MemberCardProps)
   }
 
   return (
-    <div className="px-2 py-1.5 flex cursor-pointer hover:text-main-hover hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition-colors rounded-md gap-x-2 ">
+    <div
+      className="px-2 py-1.5 flex cursor-pointer hover:text-main-hover hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition-colors rounded-md gap-x-2"
+      onClick={() => router.push(`/servers/${serverId}/conversations/${memberId}`)}>
       <UserAvatar src={imageUrl} className="size-8 md:size-8" />
       <div className="flex flex-col justify-center">
         <p className="flex items-center text-sm font-semibold gap-x-2 text-main">
