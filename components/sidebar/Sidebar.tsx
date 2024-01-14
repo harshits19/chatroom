@@ -33,7 +33,7 @@ const Sidebar = async () => {
           </div>
         ))}
       </ScrollArea>
-      <div className="flex flex-col items-center pb-3 mt-auto">
+      <div className="flex flex-col items-center mt-auto">
         <ThemeButton />
         <Separator className="bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 h-0.5 mx-auto my-2" />
         <div className="relative mx-3 rounded-full size-12 bg-zinc-300 dark:bg-zinc-700">

@@ -1,14 +1,15 @@
 import { redirect } from "next/navigation"
-import { ChannelType, MemberRole } from "@prisma/client"
+import { ChannelType } from "@prisma/client"
 import { Separator } from "@/components/ui/separator"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import ServerHeader from "@/components/server-sidebar/ServerHeader"
 import ServerSearchbar from "@/components/server-sidebar/ServerSearchbar"
 import ServerSection from "@/components/server-sidebar/ServerSection"
-import ServerChannel from "@/components/server-sidebar//ServerChannel"
+import ServerChannel from "@/components/server-sidebar/ServerChannel"
+import UserProfileCard from "@/components/server-sidebar/UserProfileCard"
 import { currentProfile } from "@/lib/currentProfile"
 import { db } from "@/lib/db"
-import { Hash, ShieldCheck, ShieldEllipsisIcon, Video, Volume2 } from "lucide-react"
+import { Hash, Video, Volume2 } from "lucide-react"
 
 const ServerSidebar = async ({ serverId }: { serverId: string }) => {
   const profile = await currentProfile()
@@ -41,8 +42,6 @@ const ServerSidebar = async ({ serverId }: { serverId: string }) => {
   const textChannels = server?.channels.filter((channel) => channel.type === ChannelType.TEXT)
   const audioChannels = server?.channels.filter((channel) => channel.type === ChannelType.AUDIO)
   const videoChannels = server?.channels.filter((channel) => channel.type === ChannelType.VIDEO)
-  //filter current user from the members list
-  const members = server?.members.filter((member) => member.profileId !== profile.id)
 
   //get role of current user
   const role = server.members.find((member) => member.profileId === profile.id)?.role
@@ -51,12 +50,6 @@ const ServerSidebar = async ({ serverId }: { serverId: string }) => {
     [ChannelType.TEXT]: <Hash className="mr-2 size-4" />,
     [ChannelType.VIDEO]: <Video className="mr-2 size-4" />,
     [ChannelType.AUDIO]: <Volume2 className="mr-2 size-4" />,
-  }
-
-  const mapIconByRole = {
-    [MemberRole.GUEST]: null,
-    [MemberRole.MODERATOR]: <ShieldCheck className="mr-2 size-4 text-theme-foreground" />,
-    [MemberRole.ADMIN]: <ShieldEllipsisIcon className="mr-2 size-4 text-theme-secondary" />,
   }
 
   const data = [
@@ -87,19 +80,10 @@ const ServerSidebar = async ({ serverId }: { serverId: string }) => {
         icon: mapIconByChannelType[channel.type],
       })),
     },
-    {
-      label: "Members",
-      type: "member" as const,
-      data: members?.flatMap((member) => ({
-        id: member.id,
-        name: member.profile.name,
-        icon: mapIconByRole[member.role],
-      })),
-    },
   ]
 
   return (
-    <div className="flex flex-col h-full w-full text-primary w-ful bg-[#F2F3F5] dark:bg-[#2B2D31]">
+    <div className="flex flex-col h-full w-full text-primary bg-[#F2F3F5] dark:bg-[#2B2D31]">
       <ServerHeader server={server} role={role} />
       <ScrollArea className="flex-1 px-2">
         <div className="mt-2">
@@ -149,6 +133,7 @@ const ServerSidebar = async ({ serverId }: { serverId: string }) => {
           </div>
         )}
       </ScrollArea>
+      <UserProfileCard profile={profile} />
     </div>
   )
 }

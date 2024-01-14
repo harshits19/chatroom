@@ -46,7 +46,7 @@ const CreateChannelModal = () => {
     else form.setValue("type", ChannelType.TEXT)
   }, [channelType, form])
 
-  // const isValid = form.formState.isValid
+  const isValid = form.formState.isValid
   const isSubmitting = form.formState.isSubmitting
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -147,7 +147,7 @@ const CreateChannelModal = () => {
               />
             </div>
             <DialogFooter className="px-6 py-4 bg-muted">
-              <Button disabled={isSubmitting} variant="primary">
+              <Button disabled={!isValid || isSubmitting} variant="primary">
                 Create Channel
               </Button>
             </DialogFooter>

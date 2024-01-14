@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation"
 import { redirectToSignIn } from "@clerk/nextjs"
 import ChatHeader from "@/components/chat-section/ChatHeader"
+import MemberSidebar from "@/components/chat-section/MemberSidebar"
 import { currentProfile } from "@/lib/currentProfile"
 import { db } from "@/lib/db"
 
@@ -29,12 +30,28 @@ const ChannelIdPage = async ({ params: { channelId, serverId } }: ChannelIdPageP
     },
   })
 
-  if (!channel || !member) return redirect("/")
+  const server = await db.server.findUnique({
+    where: {
+      id: serverId,
+    },
+    include: {
+      members: {
+        include: {
+          profile: true,
+        },
+      },
+    },
+  })
+
+  if (!channel || !member || !server) return redirect("/")
 
   return (
     <div className="flex flex-col h-full">
       <ChatHeader name={channel.name} serverId={serverId} type="channel" />
-      {channelId}
+      <div className="relative flex h-full">
+        <div className="flex-1">{channelId}</div>
+        <MemberSidebar server={server} />
+      </div>
     </div>
   )
 }

@@ -67,7 +67,7 @@ const EditServerModal = () => {
   const isModalOpen = isOpen && type === "editServer"
 
   const handleClose = () => {
-    form.reset()
+    // form.reset()
     onClose()
   }
 
