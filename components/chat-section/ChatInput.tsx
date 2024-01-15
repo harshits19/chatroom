@@ -73,7 +73,7 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                     className="h-11 px-14 no-focus bg-[#f5f6f7] dark:bg-[#383a40] border-none text-primary"
                   />
                   <div className="absolute top-[26px] right-8">
-                    <EmojiPicker onChange={(emoji: string) => field.onChange(`${field.value} ${emoji}`)} />
+                    <EmojiPicker onChange={(emoji: string) => field.onChange(`${field.value}${emoji}`)} />
                   </div>
                 </div>
               </FormControl>

@@ -1,14 +1,13 @@
 "use client"
 
-import { useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 import { MemberRole } from "@prisma/client"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import UserAvatar from "@/components/UserAvatar"
-import { ShieldCheck, ShieldEllipsisIcon } from "lucide-react"
-import { ServerWithMembersWithProfiles } from "@/types"
+import MemberCard from "@/components/chat-section/MemberCard"
+import MemberProfileCard from "@/components/chat-section/MemberProfileCard"
 import { useMemberSidebar } from "@/hooks/useMemberSidebar"
 import { cn } from "@/lib/utils"
+import { ServerWithMembersWithProfiles } from "@/types"
 
 const MemberSidebar = ({ server }: { server: ServerWithMembersWithProfiles }) => {
   const members = server?.members
@@ -16,12 +15,17 @@ const MemberSidebar = ({ server }: { server: ServerWithMembersWithProfiles }) =>
   const moderators = members.filter((member) => member.role === MemberRole.MODERATOR)
   const guests = members.filter((member) => member.role === MemberRole.GUEST)
 
+  const [isMobile, setIsMobile] = useState(false)
+
   const { isOpen, setClose } = useMemberSidebar()
 
   useEffect(() => {
     let isMediumDevice = true
     if (typeof window !== "undefined") isMediumDevice = window.innerWidth <= 1024
-    if (isMediumDevice) setClose()
+    if (isMediumDevice) {
+      setClose()
+      setIsMobile(true)
+    }
   }, [])
 
   return (
@@ -32,15 +36,14 @@ const MemberSidebar = ({ server }: { server: ServerWithMembersWithProfiles }) =>
         ) : null}
         {admins.map((member) => {
           return (
-            <MemberCard
-              key={member.id}
-              name={member.profile.name}
-              imageUrl={member.profile.imageUrl}
-              role={member.role}
-              status={member.profile.status}
-              serverId={server.id}
-              memberId={member.id}
-            />
+            <MemberProfileCard member={member} server={server} key={member.id} side={isMobile ? "bottom" : "right"}>
+              <MemberCard
+                name={member.profile.name}
+                imageUrl={member.profile.imageUrl}
+                role={member.role}
+                status={member.profile.status}
+              />
+            </MemberProfileCard>
           )
         })}
         {moderators?.length > 0 ? (
@@ -48,15 +51,15 @@ const MemberSidebar = ({ server }: { server: ServerWithMembersWithProfiles }) =>
         ) : null}
         {moderators.map((member) => {
           return (
-            <MemberCard
-              key={member.id}
-              name={member.profile.name}
-              imageUrl={member.profile.imageUrl}
-              role={member.role}
-              status={member.profile.status}
-              serverId={server.id}
-              memberId={member.id}
-            />
+            <MemberProfileCard member={member} server={server} key={member.id} side={isMobile ? "bottom" : "right"}>
+              <MemberCard
+                key={member.id}
+                name={member.profile.name}
+                imageUrl={member.profile.imageUrl}
+                role={member.role}
+                status={member.profile.status}
+              />
+            </MemberProfileCard>
           )
         })}
         {guests?.length > 0 ? (
@@ -64,15 +67,15 @@ const MemberSidebar = ({ server }: { server: ServerWithMembersWithProfiles }) =>
         ) : null}
         {guests?.map((member) => {
           return (
-            <MemberCard
-              key={member.id}
-              name={member.profile.name}
-              imageUrl={member.profile.imageUrl}
-              role={member.role}
-              status={member.profile.status}
-              serverId={server.id}
-              memberId={member.id}
-            />
+            <MemberProfileCard member={member} server={server} key={member.id} side={isMobile ? "bottom" : "right"}>
+              <MemberCard
+                key={member.id}
+                name={member.profile.name}
+                imageUrl={member.profile.imageUrl}
+                role={member.role}
+                status={member.profile.status}
+              />
+            </MemberProfileCard>
           )
         })}
       </ScrollArea>
@@ -80,36 +83,3 @@ const MemberSidebar = ({ server }: { server: ServerWithMembersWithProfiles }) =>
   )
 }
 export default MemberSidebar
-
-interface MemberCardProps {
-  name: string
-  imageUrl: string
-  role: MemberRole
-  status: string
-  serverId: string
-  memberId: string
-}
-
-const MemberCard = ({ name, imageUrl, role, status, serverId, memberId }: MemberCardProps) => {
-  const router = useRouter()
-  const mapIconByRole = {
-    [MemberRole.GUEST]: null,
-    [MemberRole.MODERATOR]: <ShieldCheck className="size-3.5 text-theme-foreground" />,
-    [MemberRole.ADMIN]: <ShieldEllipsisIcon className="size-3.5 text-theme-secondary" />,
-  }
-
-  return (
-    <div
-      className="px-2 py-1.5 flex cursor-pointer hover:text-main-hover hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition-colors rounded-md gap-x-2"
-      onClick={() => router.push(`/servers/${serverId}/conversations/${memberId}`)}>
-      <UserAvatar src={imageUrl} className="size-8 md:size-8" />
-      <div className="flex flex-col justify-center">
-        <p className="flex items-center text-sm font-semibold gap-x-2 text-main">
-          {name}
-          {mapIconByRole[role]}
-        </p>
-        {status !== "" ? <p className="text-xs">{status}</p> : null}
-      </div>
-    </div>
-  )
-}

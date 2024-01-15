@@ -8,6 +8,7 @@ import CreateChannelModal from "@/components/modals/CreateChannelModal"
 import EditChannelModal from "@/components/modals/EditChannelModal"
 import DeleteChannelModal from "@/components/modals/DeleteChannelModal"
 import MessageFileModal from "@/components/modals/MessageFileModal"
+import EditProfileModal from "@/components/modals/EditProfileModal"
 import MembersModal from "@/components/modals/MembersModal"
 import InviteModal from "@/components/modals/InviteModal"
 import { useMounted } from "@/hooks/useMounted"
@@ -19,14 +20,15 @@ const ModalProvider = () => {
   return (
     <>
       <CreateServerModal />
-      <LeaveServerModal />
+      <EditServerModal />
       <DeleteServerModal />
+      <LeaveServerModal />
       <CreateChannelModal />
       <EditChannelModal />
       <DeleteChannelModal />
       <MessageFileModal />
+      <EditProfileModal />
       <MembersModal />
-      <EditServerModal />
       <InviteModal />
     </>
   )
