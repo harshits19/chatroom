@@ -1,16 +1,16 @@
 "use client"
 
-import * as z from "zod"
 import { useRouter } from "next/navigation"
+import * as z from "zod"
 import axios from "axios"
-import { useForm } from "react-hook-form"
 import qs from "query-string"
+import { useForm } from "react-hook-form"
 import { Input } from "@/components/ui/input"
 import EmojiPicker from "@/components/EmojiPicker"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form"
-import { Plus, Smile } from "lucide-react"
 import { useModal } from "@/hooks/useModalStore"
+import { Plus } from "lucide-react"
 
 interface ChatInputProps {
   apiUrl: string
@@ -34,7 +34,7 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
     resolver: zodResolver(formSchema),
   })
 
-  const isSubmitting = form.formState.isSubmitting
+  // const isSubmitting = form.formState.isSubmitting
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
@@ -68,7 +68,7 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                   <Input
                     {...field}
                     onSubmit={(e) => e.stopPropagation()}
-                    disabled={isSubmitting}
+                    // disabled={isSubmitting}
                     placeholder={`Message ${type === "channel" && "#" + name}`}
                     className="h-11 px-14 no-focus bg-[#f5f6f7] dark:bg-[#383a40] border-none text-primary"
                   />

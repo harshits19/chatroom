@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs"
 import ModalProvider from "@/components/providers/ModalProvider"
 import { ThemeProvider } from "@/components/providers/ThemeProvider"
 import { SocketProvider } from "@/components/providers/SocketProvider"
+import QueryProvider from "@/components/providers/QueryProvider"
 import { cn } from "@/lib/utils"
 
 const openSans = Open_Sans({ subsets: ["latin"] })
@@ -25,7 +26,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
           <ThemeProvider attribute="class" defaultTheme="dark" storageKey="chatroom" enableSystem={false}>
             <SocketProvider>
               <ModalProvider />
-              {children}
+              <QueryProvider>{children}</QueryProvider>
             </SocketProvider>
           </ThemeProvider>
         </body>

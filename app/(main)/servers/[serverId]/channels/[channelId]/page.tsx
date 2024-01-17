@@ -50,8 +50,8 @@ const ChannelIdPage = async ({ params: { channelId, serverId } }: ChannelIdPageP
   return (
     <div className="flex flex-col h-full">
       <ChatHeader name={channel.name} serverId={serverId} type="channel" />
-      <div className="relative flex h-full">
-        <div className="flex flex-col w-full h-full">
+      <div className="relative flex h-[calc(100vh-50px)]">
+        <div className="flex flex-col w-full">
           <ChatMessages
             member={member}
             name={channel.name}
