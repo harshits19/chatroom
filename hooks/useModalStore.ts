@@ -6,6 +6,7 @@ export type ModalType =
   | "acceptInvite"
   | "members"
   | "messageFile"
+  | "deleteMessage"
   | "editProfile"
   | "createServer"
   | "editServer"

@@ -8,6 +8,7 @@ import CreateChannelModal from "@/components/modals/CreateChannelModal"
 import EditChannelModal from "@/components/modals/EditChannelModal"
 import DeleteChannelModal from "@/components/modals/DeleteChannelModal"
 import MessageFileModal from "@/components/modals/MessageFileModal"
+import DeleteMessageModal from "@/components/modals/DeleteMessageModal"
 import EditProfileModal from "@/components/modals/EditProfileModal"
 import MembersModal from "@/components/modals/MembersModal"
 import InviteModal from "@/components/modals/InviteModal"
@@ -27,6 +28,7 @@ const ModalProvider = () => {
       <EditChannelModal />
       <DeleteChannelModal />
       <MessageFileModal />
+      <DeleteMessageModal />
       <EditProfileModal />
       <MembersModal />
       <InviteModal />

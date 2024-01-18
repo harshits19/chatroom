@@ -64,7 +64,7 @@ const ChatMessages = ({
   }
 
   return (
-    <ScrollArea className="flex flex-col h-full pt-4 ">
+    <ScrollArea className="flex flex-col h-full pt-4">
       <ChatIntro type={type} name={name} />
       <div className="flex flex-col-reverse">
         {data?.pages?.map((group, i) => (

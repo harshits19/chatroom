@@ -1,7 +1,7 @@
 import { NextApiRequest } from "next"
-import { NextApiResponseServerIo } from "@/types"
 import { currentProfilePages } from "@/lib/currentProfilePages"
 import { db } from "@/lib/db"
+import { NextApiResponseServerIo } from "@/types"
 
 export default async function handler(req: NextApiRequest, res: NextApiResponseServerIo) {
   /* Send new message (either in channel or conversation) */

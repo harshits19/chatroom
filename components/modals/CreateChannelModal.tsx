@@ -14,7 +14,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useModal } from "@/hooks/useModalStore"
-import { Hash, VideoIcon, Volume2 } from "lucide-react"
+import { CloudCog, Hash, VideoIcon, Volume2 } from "lucide-react"
 
 const formSchema = z.object({
   name: z

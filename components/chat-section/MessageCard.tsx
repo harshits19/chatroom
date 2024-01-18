@@ -1,13 +1,15 @@
 "use client"
 
 import Image from "next/image"
-import { useState } from "react"
+import { useState, memo } from "react"
 import { format } from "date-fns"
 import { Member, MemberRole, Profile } from "@prisma/client"
 import UserAvatar from "@/components/UserAvatar"
 import ActionTooltip from "@/components/ActionTooltip"
-import { Edit, FileIcon, ShieldCheck, ShieldEllipsisIcon, Trash } from "lucide-react"
+import MessageEdit from "@/components/chat-section/MessageEdit"
+import { useModal } from "@/hooks/useModalStore"
 import { cn } from "@/lib/utils"
+import { Edit, FileIcon, ShieldCheck, ShieldEllipsisIcon, Trash } from "lucide-react"
 
 interface MessageCardProps {
   id: string
@@ -46,7 +48,7 @@ const MessageCard = ({
   const formattedTimestamp = format(new Date(timestamp), "d MMM yyyy, HH:mm")
 
   const [isEditing, setIsEditing] = useState(false)
-  const [isDeleting, setIsDeleting] = useState(false)
+  const { onOpen } = useModal()
 
   const isAdmin = currentMember.role === MemberRole.ADMIN
   const isModerator = currentMember.role === MemberRole.MODERATOR
@@ -85,22 +87,31 @@ const MessageCard = ({
               )}
             </p>
           )}
+          <MessageEdit
+            content={content}
+            isEditing={isEditing}
+            setIsEditing={setIsEditing}
+            deleted={deleted}
+            id={id}
+            socketUrl={socketUrl}
+            socketQuery={socketQuery}
+          />
         </div>
       </div>
       {canDeleteMessage && (
-        <div className="absolute items-center hidden p-1 bg-white border rounded-sm group-hover:flex gap-x-2 -top-2 right-5 dark:bg-zinc-800">
+        <div className="absolute items-center hidden px-1.5 py-1 bg-white border rounded-sm group-hover:flex gap-x-2 -top-2 right-5 dark:bg-zinc-800">
           {canEditMessage && (
             <ActionTooltip label="Edit" side="top">
               <Edit
                 onClick={() => setIsEditing(true)}
-                className="ml-auto transition cursor-pointer size-4 text-main hover:text-main-hover"
+                className="ml-auto transition cursor-pointer size-[18px] text-main hover:text-main-hover"
               />
             </ActionTooltip>
           )}
           <ActionTooltip label="Delete" side="top">
             <Trash
-              onClick={() => {}}
-              className="ml-auto transition cursor-pointer size-4 text-main hover:text-main-hover"
+              onClick={() => onOpen("deleteMessage", { apiUrl: `${socketUrl}/${id}`, query: socketQuery })}
+              className="ml-auto transition cursor-pointer size-[18px] text-main hover:text-main-hover"
             />
           </ActionTooltip>
         </div>
@@ -109,7 +120,7 @@ const MessageCard = ({
   )
 }
 
-export default MessageCard
+export default memo(MessageCard)
 
 const MediaSection = ({ fileUrl, isImage, isPDF }: { fileUrl: string | null; isImage?: boolean; isPDF?: boolean }) => {
   if (!fileUrl) return
