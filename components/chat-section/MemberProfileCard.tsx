@@ -14,11 +14,12 @@ interface MemberProfileCardProps {
   children: React.ReactNode
   member: Member & { profile: Profile }
   server: Server
+  currentMemberId?: string
   side?: "left" | "top" | "right" | "bottom"
   align?: "center" | "start" | "end"
 }
 
-const MemberProfileCard = ({ children, member, server, side = "left", align = "center" }: MemberProfileCardProps) => {
+const MemberProfileCard = ({ children, member, currentMemberId, server, side = "left", align = "center" }: MemberProfileCardProps) => {
   const router = useRouter()
 
   const isMounted = useMounted()
@@ -83,7 +84,7 @@ const MemberProfileCard = ({ children, member, server, side = "left", align = "c
                 <span>{format(member.profile.createdAt, "MMM dd, yyyy")}</span>
               </div>
             </div>
-            {server.profileId !== member.profileId && (
+            {currentMemberId !== member.id && (
               <div className="pt-4">
                 <Button
                   variant="primary"

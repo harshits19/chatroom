@@ -88,3 +88,22 @@ body,
 .nofocus:focus {
   outline: none;
 }
+.light {
+  --scroll-thumb: #c4c9ce;
+  --scroll-bg: #ebedef;
+}
+.dark {
+  --scroll-thumb: #1a1b1e;
+  --scroll-bg: #2b2d31;
+}
+.chatsection::-webkit-scrollbar {
+  width: 8px;
+}
+.chatsection::-webkit-scrollbar-track {
+  background: var(--scroll-bg);
+  border-radius: 10px;
+}
+.chatsection::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb);
+  border-radius: 10px;
+}

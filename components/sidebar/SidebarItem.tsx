@@ -32,7 +32,7 @@ const SidebarItem = ({ id, imageUrl, name }: SidebarItemProps) => {
             "relative group flex mx-3 size-12 rounded-3xl group-hover:rounded-2xl transition-all overflow-hidden",
             isRouteActive && "bg-primary/70 text-primary rounded-2xl"
           )}>
-          <Image src={imageUrl} alt="channel" className="object-cover object-center" fill />
+          <Image src={imageUrl} alt="server" className="object-cover object-center" sizes="50vw" priority fill />
         </div>
       </button>
     </ActionTooltip>

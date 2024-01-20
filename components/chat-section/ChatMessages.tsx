@@ -1,7 +1,7 @@
 "use client"
 
 import { Fragment } from "react"
-import { Member, Message, Profile } from "@prisma/client"
+import { Member, Message, Profile, Server } from "@prisma/client"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import ChatIntro from "@/components/chat-section/ChatIntro"
 import MessageCard from "@/components/chat-section/MessageCard"
@@ -11,6 +11,7 @@ import { Loader2, ServerCrash } from "lucide-react"
 interface ChatMessagesProps {
   name: string
   member: Member
+  server: Server
   chatId: string
   apiUrl: string
   socketUrl: string
@@ -29,6 +30,7 @@ type MessageWMemberWProfile = Message & {
 const ChatMessages = ({
   name,
   member,
+  server,
   chatId,
   apiUrl,
   socketUrl,
@@ -64,7 +66,8 @@ const ChatMessages = ({
   }
 
   return (
-    <ScrollArea className="flex flex-col h-full pt-4">
+    <div className="flex flex-col h-full pt-4 overflow-y-auto chatsection">
+      <div className="flex-1" />
       <ChatIntro type={type} name={name} />
       <div className="flex flex-col-reverse">
         {data?.pages?.map((group, i) => (
@@ -74,6 +77,7 @@ const ChatMessages = ({
                 key={message.id}
                 id={message.id}
                 member={message.member}
+                server={server}
                 currentMember={member}
                 content={message.content}
                 fileUrl={message.fileUrl}
@@ -87,7 +91,7 @@ const ChatMessages = ({
           </Fragment>
         ))}
       </div>
-    </ScrollArea>
+    </div>
   )
 }
 export default ChatMessages

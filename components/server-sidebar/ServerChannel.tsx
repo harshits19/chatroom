@@ -33,7 +33,7 @@ const ServerChannel = ({ channel, server, role }: ServerChannelProps) => {
   return (
     <button
       className={cn(
-        "group px-2 py-1.5 rounded-md flex items-center gap-x-1 w-full hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 mb-1",
+        "group px-2 py-1.5 rounded-md flex items-center gap-x-1 w-full hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 mb-0.5",
         params?.channelId === channel?.id &&
           "bg-zinc-500/20 dark:bg-zinc-600/40 hover:bg-zinc-500/20 dark:hover:bg-zinc-600/40"
       )}

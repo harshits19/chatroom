@@ -30,6 +30,9 @@ const ChannelIdPage = async ({ params: { channelId, serverId } }: ChannelIdPageP
       serverId: serverId,
       profileId: profile.id,
     },
+    include: {
+      server: true,
+    },
   })
 
   const server = await db.server.findUnique({
@@ -51,10 +54,11 @@ const ChannelIdPage = async ({ params: { channelId, serverId } }: ChannelIdPageP
     <div className="flex flex-col h-full">
       <ChatHeader name={channel.name} serverId={serverId} type="channel" />
       <div className="relative flex h-[calc(100vh-50px)]">
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full pr-[3px] pt-0.5">
           <ChatMessages
             member={member}
             name={channel.name}
+            server={member.server}
             chatId={channelId}
             type="channel"
             apiUrl="/api/messages"
@@ -76,7 +80,7 @@ const ChannelIdPage = async ({ params: { channelId, serverId } }: ChannelIdPageP
             }}
           />
         </div>
-        <MemberSidebar server={server} />
+        <MemberSidebar server={server} currentMemberId={member.id} />
       </div>
     </div>
   )

@@ -59,7 +59,7 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <div className="relative p-4 pb-6">
+                <div className="relative pl-4 pr-[13px] pt-4 pb-6">
                   <div
                     onClick={() => onOpen("messageFile", { apiUrl, query })}
                     className="absolute rounded-full bg-primary/70 hover:bg-primary/85 top-7 left-8">

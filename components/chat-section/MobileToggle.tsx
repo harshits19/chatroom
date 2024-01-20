@@ -1,3 +1,4 @@
+import { memo } from "react"
 import Sidebar from "@/components/sidebar/Sidebar"
 import ServerSidebar from "@/components/server-sidebar/ServerSidebar"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
@@ -18,4 +19,4 @@ const MobileToggle = ({ serverId }: { serverId: string }) => {
     </Sheet>
   )
 }
-export default MobileToggle
+export default memo(MobileToggle)

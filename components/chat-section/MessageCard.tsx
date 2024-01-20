@@ -3,10 +3,11 @@
 import Image from "next/image"
 import { useState, memo } from "react"
 import { format } from "date-fns"
-import { Member, MemberRole, Profile } from "@prisma/client"
+import { Member, MemberRole, Profile, Server } from "@prisma/client"
 import UserAvatar from "@/components/UserAvatar"
 import ActionTooltip from "@/components/ActionTooltip"
 import MessageEdit from "@/components/chat-section/MessageEdit"
+import MemberProfileCard from "@/components/chat-section/MemberProfileCard"
 import { useModal } from "@/hooks/useModalStore"
 import { cn } from "@/lib/utils"
 import { Edit, FileIcon, ShieldCheck, ShieldEllipsisIcon, Trash } from "lucide-react"
@@ -17,6 +18,7 @@ interface MessageCardProps {
   member: Member & {
     profile: Profile
   }
+  server: Server
   timestamp: Date
   fileUrl: string | null
   deleted: boolean
@@ -36,6 +38,7 @@ const MessageCard = ({
   id,
   content,
   member,
+  server,
   timestamp,
   fileUrl,
   deleted,
@@ -62,12 +65,16 @@ const MessageCard = ({
     <div className="relative flex w-full p-4 transition group hover:bg-zinc-200/20 dark:hover:bg-zinc-900/15">
       <div className="flex items-start w-full group gap-x-2">
         <div className="transition cursor-pointer hover:drop-shadow-sm">
-          <UserAvatar src={member.profile.imageUrl} />
+          <MemberProfileCard server={server} member={member} currentMemberId={currentMember.id} side="right">
+            <UserAvatar src={member.profile.imageUrl} />
+          </MemberProfileCard>
         </div>
         <div className="flex flex-col w-full">
           <div className="flex flex-wrap items-center gap-x-2">
             <div className="flex items-center gap-x-1">
-              <p className="text-sm font-semibold cursor-pointer hover:underline">{member.profile.name}</p>
+              <MemberProfileCard server={server} member={member} currentMemberId={currentMember.id}  side="top">
+                <p className="text-sm font-semibold cursor-pointer hover:underline">{member.profile.name}</p>
+              </MemberProfileCard>
               <ActionTooltip label={member.role} side="top">
                 {mapIconByRole[member.role]}
               </ActionTooltip>

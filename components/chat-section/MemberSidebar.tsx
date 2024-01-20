@@ -9,7 +9,13 @@ import { useMemberSidebar } from "@/hooks/useMemberSidebar"
 import { cn } from "@/lib/utils"
 import { ServerWithMembersWithProfiles } from "@/types"
 
-const MemberSidebar = ({ server }: { server: ServerWithMembersWithProfiles }) => {
+const MemberSidebar = ({
+  server,
+  currentMemberId,
+}: {
+  server: ServerWithMembersWithProfiles
+  currentMemberId: string
+}) => {
   const members = server?.members
   const admins = members.filter((member) => member.role === MemberRole.ADMIN)
   const moderators = members.filter((member) => member.role === MemberRole.MODERATOR)
@@ -36,7 +42,12 @@ const MemberSidebar = ({ server }: { server: ServerWithMembersWithProfiles }) =>
         ) : null}
         {admins.map((member) => {
           return (
-            <MemberProfileCard member={member} server={server} key={member.id} side={isMobile ? "bottom" : "right"}>
+            <MemberProfileCard
+              member={member}
+              server={server}
+              key={member.id}
+              currentMemberId={currentMemberId}
+              side={isMobile ? "bottom" : "right"}>
               <MemberCard
                 name={member.profile.name}
                 imageUrl={member.profile.imageUrl}
@@ -51,7 +62,12 @@ const MemberSidebar = ({ server }: { server: ServerWithMembersWithProfiles }) =>
         ) : null}
         {moderators.map((member) => {
           return (
-            <MemberProfileCard member={member} server={server} key={member.id} side={isMobile ? "bottom" : "right"}>
+            <MemberProfileCard
+              member={member}
+              server={server}
+              key={member.id}
+              currentMemberId={currentMemberId}
+              side={isMobile ? "bottom" : "right"}>
               <MemberCard
                 key={member.id}
                 name={member.profile.name}
@@ -67,7 +83,12 @@ const MemberSidebar = ({ server }: { server: ServerWithMembersWithProfiles }) =>
         ) : null}
         {guests?.map((member) => {
           return (
-            <MemberProfileCard member={member} server={server} key={member.id} side={isMobile ? "bottom" : "right"}>
+            <MemberProfileCard
+              member={member}
+              server={server}
+              key={member.id}
+              currentMemberId={currentMemberId}
+              side={isMobile ? "bottom" : "right"}>
               <MemberCard
                 key={member.id}
                 name={member.profile.name}
