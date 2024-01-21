@@ -35,7 +35,7 @@ const AcceptInviteModal = ({ server }: { server: Server & { profile: Profile; me
   if (!isMounted) return null
   return (
     <Dialog open>
-      <DialogContent className="overflow-hidden bg-theme no-focus">
+      <DialogContent className="overflow-hidden bg-theme nofocus">
         <DialogHeader className="flex flex-col items-center justify-center">
           <div className="relative rounded-full size-16 bg-muted">
             {server?.imageUrl && (

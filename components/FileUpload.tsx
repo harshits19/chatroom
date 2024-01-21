@@ -15,7 +15,7 @@ const FileUpload = ({ endpoint, value, onChange }: FileUploadProps) => {
   if (value && fileType !== "pdf" && endpoint === "serverImage") {
     return (
       <div className="relative size-20">
-        <Image fill src={value} alt="uploaded image" className="object-cover object-center rounded-full bg-muted" />
+        <Image fill src={value} sizes="50vw" alt="uploaded image" className="object-cover object-center rounded-full bg-muted" />
         <button
           className="absolute top-0 right-0 p-1 text-white rounded-full shadow-sm bg-rose-500"
           type="button"

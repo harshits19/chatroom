@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useMounted } from "@/hooks/useMounted"
+import ActionTooltip from "../ActionTooltip"
 
 interface MemberProfileCardProps {
   children: React.ReactNode
@@ -19,7 +20,14 @@ interface MemberProfileCardProps {
   align?: "center" | "start" | "end"
 }
 
-const MemberProfileCard = ({ children, member, currentMemberId, server, side = "left", align = "center" }: MemberProfileCardProps) => {
+const MemberProfileCard = ({
+  children,
+  member,
+  currentMemberId,
+  server,
+  side = "left",
+  align = "center",
+}: MemberProfileCardProps) => {
   const router = useRouter()
 
   const isMounted = useMounted()
@@ -62,26 +70,30 @@ const MemberProfileCard = ({ children, member, currentMemberId, server, side = "
             <h4 className="text-xs font-bold uppercase text-primary dark:text-primary/70">Member Since</h4>
             <div className="flex items-center text-xs font-medium text-primary/90 gap-x-2">
               <div className="flex items-center py-2 gap-x-2">
-                <Image src="/ico1.png" height={16} width={16} sizes="100vw" alt="chatroom" className="rounded-full" />
-                <span>{format(member.createdAt, "MMM dd, yyyy")}</span>
+                <ActionTooltip label="Chatroom" side="top">
+                  <Image src="/ico1.png" height={16} width={16} sizes="100vw" alt="chatroom" className="rounded-full" />
+                </ActionTooltip>
+                <span>{format(member.profile.createdAt, "MMM dd, yyyy")}</span>
               </div>
               <div className="rounded-full size-1 bg-zinc-500 dark:bg-zinc-700" />
               <div className="flex items-center gap-x-2">
                 {server.imageUrl ? (
-                  <Image
-                    src={server.imageUrl}
-                    height={16}
-                    width={16}
-                    sizes="100vw"
-                    alt="server-img"
-                    className="rounded-full"
-                  />
+                  <ActionTooltip label={server.name} side="top">
+                    <Image
+                      src={server.imageUrl}
+                      height={16}
+                      width={16}
+                      sizes="100vw"
+                      alt="server-img"
+                      className="rounded-full"
+                    />
+                  </ActionTooltip>
                 ) : (
                   <span className="rounded-full size-4 bg-zinc-400 dark:bg-zinc-800 text-main text-[10px] flex items-center justify-center">
                     S
                   </span>
                 )}
-                <span>{format(member.profile.createdAt, "MMM dd, yyyy")}</span>
+                <span>{format(member.createdAt, "MMM dd, yyyy")}</span>
               </div>
             </div>
             {currentMemberId !== member.id && (
@@ -89,7 +101,7 @@ const MemberProfileCard = ({ children, member, currentMemberId, server, side = "
                 <Button
                   variant="primary"
                   className="w-full"
-                  onClick={() => router.push(`/servers/${server.id}/conversations/${member.id}`)}>
+                  onClick={() => router.push(`/user/${currentMemberId}/chat/${member.id}`)}>
                   Message
                 </Button>
               </div>

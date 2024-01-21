@@ -63,7 +63,7 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                   <div
                     onClick={() => onOpen("messageFile", { apiUrl, query })}
                     className="absolute rounded-full bg-primary/70 hover:bg-primary/85 top-7 left-8">
-                    <Plus className="p-[3px] size-[22px] text-primary-foreground/85" />
+                    <Plus className="p-[3px] size-[22px] text-primary-foreground/85 cursor-pointer" />
                   </div>
                   <Input
                     {...field}

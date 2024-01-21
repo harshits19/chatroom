@@ -5,44 +5,43 @@ import { getOrCreateConversations } from "@/lib/getConversation"
 import { redirectToSignIn } from "@clerk/nextjs"
 import { redirect } from "next/navigation"
 
-interface MemberIdPageProps {
+interface ChatPageProps {
   params: {
     memberId: string
-    serverId: string
   }
 }
 
-const MemberIdPage = async ({ params: { memberId, serverId } }: MemberIdPageProps) => {
+const ChatPage = async ({ params: { memberId } }: ChatPageProps) => {
   const profile = await currentProfile()
   if (!profile) return redirectToSignIn()
 
-  const currentMember = await db.member.findFirst({
+/*   const currentMember = await db.member.findFirst({
     where: {
-      serverId: serverId,
+      serverId: memberId,
       profileId: profile.id,
     },
     include: {
       profile: true,
     },
   })
-  if (!currentMember) return redirect("/")
+  if (!currentMember) return redirect("/") */
 
-  const conversation = await getOrCreateConversations(currentMember.id, memberId)
+  /* const conversation = await getOrCreateConversations(currentMember.id, chat)
   if (!conversation) return redirect(`/servers/${serverId}`)
 
   const { memberOne, memberTwo } = conversation
 
-  const otherMember = memberOne.profileId === profile.id ? memberTwo : memberOne
+  const otherMember = memberOne.profileId === profile.id ? memberTwo : memberOne */
 
   return (
     <div className="flex flex-col h-full">
-      <ChatHeader
+      {/*  <ChatHeader
         name={otherMember.profile.name}
         serverId={serverId}
         type="conversation"
         imageUrl={otherMember.profile.imageUrl}
-      />
+      /> */}
     </div>
   )
 }
-export default MemberIdPage
+export default ChatPage
